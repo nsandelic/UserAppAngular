@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(f: NgForm) {
-      const url = 'http://localhost:8080/api/register/';
+      const url = 'http://localhost:8080/api/register';
   
       if(f.valid){
   
