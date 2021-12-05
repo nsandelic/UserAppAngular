@@ -1,0 +1,118 @@
+<body>  
+    <h2>User App Login</h2><br>    
+    <div class="login">    
+        <form #authenticationForm="ngForm">    
+            <label id="loginLabel">Username</label> <br>    
+            <input  [(ngModel)]="userCredentials.username" [disabled]="authenticating" appInputAutoFocus
+                autocomplete="username" class="form-control" id="Uname" name="username"
+                placeholder="Enter username" required type="username">        
+            <label id="loginLabel">Password</label>    
+            <input [(ngModel)]="userCredentials.password" [disabled]="authenticating" appInputAutoFocus
+                autocomplete="current-password" class="form-control" id="Pass" name="password"
+                placeholder="Enter password" required type="password">      
+            <button (click)="login()" id="log" [disabled]="!authenticationForm.valid || authenticating"
+                type="submit" > Login
+                <span *ngIf="authenticating"></span>
+            </button> 
+
+            <div >
+                <button id="log" (click)="open(content)">Register</button>
+              </div>
+
+            <div id="failMsg" *ngIf="loginFailed">
+                Login failed. Please check your credentials.
+            </div>   
+        </form>     
+    </div>    
+    
+
+    </body>
+
+
+
+
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Registration</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+            <div class="form-group">
+              <label for="firstName">Firstname</label>
+              <div class="input-group">
+                <input id="firstName" name="firstName" #firstName="ngModel" ngModel required class="form-control" ngModel >
+              </div>
+              <span id="ValidMsg"*ngIf="firstName.invalid && firstName.touched" class="error">You must enter firstname</span>
+            </div>
+    
+            <div class="form-group">
+              <label for="lastName">Lastname</label>
+              <div class="input-group">
+                <input id="lastName" name="lastName" #lastName="ngModel" ngModel required class="form-control" ngModel>
+              </div>
+              <span id="ValidMsg" *ngIf="lastName.invalid && lastName.touched" class="error">You must enter lastname</span>
+            </div>
+          
+            <div class="form-group">
+              <label for="username">Username</label>
+              <div class="input-group">
+                <input id="username" name="username" #username="ngModel" ngModel required class="form-control" ngModel>
+              </div>
+              <span id="ValidMsg" *ngIf="username.invalid && username.touched " class="error">You must enter username</span>
+            </div>
+    
+    <br>
+            <div class="form-group">
+              <input class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dob"
+              [(ngModel)]="dob"
+              ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                  Select date
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-group">
+                <input type="password" id="password" name="password" #password="ngModel" ngModel required class="form-control" ngModel>
+              </div>
+              <span id="ValidMsg" *ngIf="password.invalid && password.touched" class="error">You must enter password</span>
+            </div>
+    
+            <div class="form-group">
+              <label for="email">Email</label>
+              <div class="input-group">
+                <input type="email" id="email"name="email" #email="ngModel" ngModel email required  class="form-control" ngModel>
+              </div>
+              <span id="ValidMsg" *ngIf="email.invalid && email.touched" class="error">You must enter email</span>
+            </div>
+    
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <div class="input-group">
+                <input  id="gender" name="gender" #gender="ngModel" ngModel required class="form-control"ngModel >
+              </div>
+              <span id="ValidMsg" *ngIf="gender.invalid && gender.touched" class="error">You must enter gender</span>
+            </div>
+    
+            <div class="border text-center">
+              <button data-dismiss="modal" class="btn btn-info">Submit</button>
+              </div>
+          </form>
+      
+    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close')">Close</button>
+        </div>
+      </ng-template>
+
+
+    

@@ -1,0 +1,41 @@
+/* The sidebar menu */
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 200px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: lightgray; /* GREEN */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    margin-top: 60px;
+  }
+  a{
+      color: black;
+      text-decoration: none;
+      font-size: 20px;
+      
+  }
+  li{
+      margin-left: 15px;
+      margin-top: 50px;
+      list-style-type: circle;
+    
+  }
+  a:hover{
+      color:white;
+  }
+
+  ul:hover{
+      background-color: #04AA6D;
+      color:white;
+      
+  }
+  h2{
+      
+      color: black;
+  }
+  .title{
+      border-bottom: 3px solid grey;
+  }

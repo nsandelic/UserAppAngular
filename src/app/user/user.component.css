@@ -1,0 +1,42 @@
+.wrapper{
+    margin-top: 150px;
+}
+table, td, th {  
+    border: 1px solid #ddd;
+    text-align: left;
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+}
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+}
+th {
+    background-color: #04AA6D;
+    color: white;
+}
+tr:hover {
+      background-color: #f2f2f2;
+      
+}
+.editButton, .delButton{
+    margin: 3px;
+}
+.addButton{
+    margin-left: 10%;
+    margin-bottom: 15px;
+}
+input.ng-invalid{
+    border-left: 5px solid red;
+  }
+  
+  input.ng-valid{
+    border-left: 5px solid green;
+  }
+  .error{
+    color: red;
+  }
+  

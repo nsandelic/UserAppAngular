@@ -1,0 +1,202 @@
+<div class="wrapper">
+
+  <div *ngIf="userService.isRoleAdmin()">
+    <button class="addButton" (click)="open(content)">Add new user</button>
+  </div>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Username</th>
+        <th>Date of birth</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Role</th>
+        <th *ngIf="userService.isRoleAdmin()">Actions</th> 
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of userArray">
+        <td><span >{{user.id}}</span></td>
+        <td><span >{{user.firstName}}</span></td>
+        <td><span >{{user.lastName}}</span></td>
+        <td><span >{{user.username}}</span></td>
+        <td><span>{{user.dob}}</span></td>
+        <td><span>{{user.email}}</span></td>
+        <td><span>{{user.gender}}</span></td>
+        <td><span *ngFor="let role of user.authorities" >{{role}}  </span></td>
+        <td *ngIf="userService.isRoleAdmin()">
+            <button class="editButton" (click)="openEdit(contentEdit, user)" >Edit</button>
+            <button class="delButton" (click)="deletePopUp(user)"> Delete</button>
+          </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+<!--  Add new form -->
+  <ng-template #content let-modal id="template">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add new user</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <div class="form-group">
+          <label for="firstName">Firstname</label>
+          <div class="input-group">
+            <input id="firstName" name="firstName" #firstName="ngModel" ngModel required class="form-control" ngModel >
+          </div>
+          <span *ngIf="firstName.invalid && firstName.touched" class="error">You must enter firstname</span>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Lastname</label>
+          <div class="input-group">
+            <input id="lastName" name="lastName" #lastName="ngModel" ngModel required class="form-control" ngModel>
+          </div>
+          <span *ngIf="lastName.invalid && lastName.touched" class="error">You must enter lastname</span>
+        </div>
+      
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-group">
+            <input id="username" name="username" #username="ngModel" ngModel required class="form-control" ngModel>
+          </div>
+          <span *ngIf="username.invalid && username.touched " class="error">You must enter username</span>
+        </div>
+
+<br>
+        <div class="form-group">
+          <input class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dob"
+          [(ngModel)]="dob"
+          ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+              Select date
+            </button>
+          </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-group">
+            <input type="password" id="password" name="password" #password="ngModel" ngModel required class="form-control" ngModel>
+          </div>
+          <span *ngIf="password.invalid && password.touched" class="error">You must enter password</span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group">
+            <input type="email" id="email"name="email" #email="ngModel" ngModel email required  class="form-control" ngModel>
+          </div>
+          <span *ngIf="email.invalid && email.touched" class="error">You must enter email</span>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <div class="input-group">
+            <input  id="gender" name="gender" #gender="ngModel" ngModel required class="form-control"ngModel >
+          </div>
+          <span *ngIf="gender.invalid && gender.touched" class="error">You must enter gender</span>
+        </div>
+
+        <div class="border text-center">
+          <button data-dismiss="modal" class="btn btn-info">Submit</button>
+          </div>
+      </form>
+  
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close')">Close</button>
+    </div>
+  </ng-template>
+
+ <!--  Update form   -->
+  <ng-template #contentEdit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Update user</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="editForm"  #form ngNativeValidate>
+        <div class="form-group">
+          <label for="firstName">Firstname</label>
+          <div class="input-group">
+            <input  formControlName="firstName" required class="form-control"  >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Lastname</label>
+          <div class="input-group">
+            <input  formControlName="lastName" required class="form-control" >
+          </div>
+        </div>
+      
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-group">
+            <input  formControlName="username" required class="form-control" >
+          </div>
+        </div>
+
+<!--   Datum
+        <div class="form-group">
+          <input class="form-control"
+          placeholder="yyyy-mm-dd"
+          formControlName="dob"
+          [(ngModel)]="dob"
+          ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+              Select date
+            </button>
+          </div>
+        </div>
+-->
+      
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group">
+            <input type="email" formControlName="email" required email class="form-control" >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <div class="input-group">
+            <input   formControlName="gender" required class="form-control" >
+          </div>
+        </div>
+
+        <div class="border text-center">
+          <button data-dismiss="modal" class="btn btn-info" (click)="form.checkValidity()? onSave() : null" >Save changes</button>
+          </div>
+
+      </form>
+
+  
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close')">Close</button>
+    </div>
+  </ng-template>

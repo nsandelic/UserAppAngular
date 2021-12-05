@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
+import { UserService } from './services/user.service';
+import { User } from './user/user';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +11,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'UserApp';
+ 
+
+
+
+  constructor(
+      public userService: UserService
+  ) {}
+  isUserLoggedIn(): boolean {
+    return !!this.userService.currentUser;
+  }
+
+
+ 
+
+
 }

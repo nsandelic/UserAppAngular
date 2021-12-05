@@ -1,0 +1,35 @@
+<nav class="navBar">
+
+       <h3 class="title">UserApp</h3>
+   
+
+   <div>
+       <ul>
+           <ul class="loggedBar" *ngIf="isUserLoggedIn()">
+
+               <li class="nav-item">
+                   <a class="logout" (click)="logout()">
+                       <span> Logout</span>
+                   </a>
+               </li>
+           
+               <li class="nav-item">
+                   <a>
+                       <span>|</span>
+                   </a>
+               </li>
+               <li class="nav-item">
+                   <a>
+                       <span>Username: {{userService?.currentUser?.username}}</span>
+                   </a>
+               </li>
+           </ul>
+
+           <li class="login" *ngIf="!isUserLoggedIn()">
+               <a [routerLink]="['/login']"  id="loginLink">
+                   <span> Login</span>
+               </a>
+           </li>
+       </ul>
+   </div>
+</nav>
